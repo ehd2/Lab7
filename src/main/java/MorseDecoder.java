@@ -44,10 +44,6 @@ public class MorseDecoder {
      */
     private static double[] binWavFilePower(final WavFile inputFile)
             throws IOException, WavFileException {
-
-        /*
-         * We should check the results of getNumFrames to ensure that they are safe to cast to int.
-         */
         int totalBinCount = (int) Math.ceil(inputFile.getNumFrames() / BIN_SIZE);
         double[] returnBuffer = new double[totalBinCount];
 
@@ -81,7 +77,9 @@ public class MorseDecoder {
          * There are four conditions to handle. Symbols should only be output when you see
          * transitions. You will also have to store how much power or silence you have seen.
          */
-
+        if (powerMeasurements == null) {
+            return null;
+        }
         // if ispower and waspower
         // else if ispower and not waspower
         // else if issilence and wassilence
